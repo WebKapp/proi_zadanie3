@@ -16,6 +16,8 @@ private:
     string street;
     string number;
 public:
+    Producer();
+    Producer(string Name, string City);
     string getName();
     string getCity();
     string getPostCode();

@@ -20,6 +20,7 @@ private:
     vector<string> components;
 
 public:
+    Product(int Volume, int NumberLot, string Name, vector<string> Components);
     int getVolume();
     int getNumberLot();
     string getName();
@@ -40,6 +41,20 @@ public:
     void removeComponent(string Component);
     int numberOfComponents();
     void printComponents();
+
+    //wersja prefiksowa -zwraca wartość po inkrementacji
+    Product& operator++();
+    //wersja postfiksowa - też inkrementuje, ale zwraca wartość przed inkrementacją
+    Product operator++(int);
+
+    //wersja prefiksowa -zwraca wartość po inkrementacji
+    Product& operator--();
+    //wersja postfiksowa - też inkrementuje, ale zwraca wartość przed inkrementacją
+    Product operator--(int);
+
+    bool operator>(Product second_argument) const;
+    bool operator<(const Product& second_argument) const;
+
 };
 
 

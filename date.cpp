@@ -12,6 +12,11 @@
 #include "date.h"
 using namespace std;
 
+Date::Date(){
+    day = 1;
+    month = January;
+    year = 2000;
+}
 Date::Date(int d,Months m, int y) {
     if (checkDate(d, m, y)) {
         day = d;
@@ -80,4 +85,12 @@ void Date::printDate() {
 
 void Date::printWrongDate(int day, Months month, int year){
     cout << "Wrong date- " << day << "." << month << "." << year<< endl;
+}
+
+void Date::setDate(int newDay, Months newMonth, int newYear) {
+    if (checkDate(newDay, newMonth, newYear)) {
+        day = newDay;
+        month = newMonth;
+        year = newYear;
+    }
 }

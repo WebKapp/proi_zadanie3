@@ -50,7 +50,6 @@ void Product::setExpirationDate(Date newExpirationDate) {
     expirationDate = newExpirationDate;
 }
 
-
 bool Product::checkIfContains(string Component) {
     return (find(components.begin(), components.end(), Component) != components.end());
 }
@@ -67,6 +66,7 @@ int Product::getIndexOfComponent(string Component){
         if (components[i] == Component)
             return i;
     }
+    return 0;
 }
 
 void Product::modifyComponent(string oldComponent, string newComponent) {
@@ -85,3 +85,51 @@ void Product::removeComponent(string Component) {
 int Product::numberOfComponents() {
     return components.size();
 }
+
+//przeciążenia operatorów
+Product& Product::operator++()
+{
+    volume += 1;
+    return *this;
+}
+
+Product Product::operator++(int)
+{
+    Product old_value = *this;
+    ++(*this); //albo po prostu można wywołać operator++(); ewentualnie jawnie wskazać, że ma być wywołany dla tego obiektu: this -> operator++();
+    return old_value;
+}
+
+Product& Product::operator--()
+{
+    volume -= 1;
+    return *this;
+}
+
+Product Product::operator--(int)
+{
+    Product old_value = *this;
+    --(*this); //albo po prostu można wywołać operator++(); ewentualnie jawnie wskazać, że ma być wywołany dla tego obiektu: this -> operator++();
+    return old_value;
+}
+
+bool Product::operator>(Product second_argument) const
+{
+    return volume > second_argument.getVolume();
+}
+
+bool Product::operator<(const Product& second_argument) const
+{
+    return !(*this > second_argument);
+}
+
+Product::Product(int Volume, int NumberLot, string Name, vector<string> Components) {
+    volume = Volume;
+    numberLot = NumberLot;
+    name = Name;
+    components = Components;
+//    expirationDate.setDate(DayExpiration, MonthExpiration, YearExpiration);
+//    producer.setName(NameProducer);
+}
+
+
