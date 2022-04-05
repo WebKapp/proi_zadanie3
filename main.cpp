@@ -21,5 +21,7 @@ int main() {
     cout << product.getVolume() << endl;
     product--;
     cout << product.getVolume() << endl;
+
+    product.getProducer().setName("Bartek");
     return 0;
 }
