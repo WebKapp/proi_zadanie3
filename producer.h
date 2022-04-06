@@ -14,23 +14,23 @@ private:
     string city;
     string postCode;
     string street;
-    string number;
+    int number;
 public:
     Producer();
-    Producer(string Name, string City);
+    Producer(string Name);
     string getName();
     string getCity();
     string getPostCode();
     string getStreet();
-    string getNumber();
+    int getNumber();
 //    string getFullAddress();
 
     void setName(string newName);
     void setCity(string newCity);
     void setPostCode(string newPostCode);
     void setStreet(string newStreet);
-    void setNumber(string newNumber);
+    void setNumber(int newNumber);
 
-
+    void setAddress(string newCity, string newPostCode, string newStreet, int newNumber);
 };
 #endif //ZADANIE3_PRODUCER_H
