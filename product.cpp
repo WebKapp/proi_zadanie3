@@ -26,7 +26,7 @@ Date Product::getExpirationDate() {
     return expirationDate;
 }
 
-vector<string> Product::getComponents() {
+vector<Component> Product::getComponents() {
     return components;
 }
 
@@ -49,38 +49,51 @@ void Product::setProducer(Producer newProducer) {
 void Product::setExpirationDate(Date newExpirationDate) {
     expirationDate = newExpirationDate;
 }
-
-bool Product::checkIfContains(string Component) {
-    return (find(components.begin(), components.end(), Component) != components.end());
+Component Product::getComponent(string name) {
+    if(checkIfContains(name)){
+        for(int i=0; i < components.size(); i++){
+            if (components.at(i).getName() == name)
+                return components.at(i);
+        }
+    }
 }
 
-void Product::addComponent(string newComponent) {
-    if (not checkIfContains(newComponent)) {
+bool Product::checkIfContains(string checkedComponent) {
+    for(int i=0; i < components.size(); i++){
+        if (components.at(i).getName() == checkedComponent)
+            return true;
+    }
+    return false;
+}
+
+void Product::addComponent(Component& newComponent) {
+    if (not checkIfContains(newComponent.getName())) {
         components.push_back(newComponent);
     }
 }
 
-int Product::getIndexOfComponent(string Component){
-    for (int i = 0; i < components.size(); i++)
-    {
-        if (components[i] == Component)
-            return i;
+int Product::getIndexOfComponent(string name){
+    if (checkIfContains(name)) {
+        for (int i = 0; i < components.size(); i++)
+        {
+            if (components[i].getName() == name)
+                return i;
+        }
     }
-    return 0;
 }
 
-void Product::modifyComponent(string oldComponent, string newComponent) {
-    if (checkIfContains(oldComponent)){
-        int index = getIndexOfComponent(oldComponent);
+void Product::modifyComponent(Component& oldComponent, Component& newComponent) {
+    if (checkIfContains(oldComponent.getName())){
+        int index = getIndexOfComponent(oldComponent.getName());
         components.at(index) = newComponent;
     }
 }
 
-void Product::removeComponent(string Component) {
-    if (checkIfContains(Component)){
-        components.erase(remove(components.begin(), components.end(), Component), components.end());
-    }
-}
+//void Product::removeComponent(string name) {
+//    if (checkIfContains(name)){
+//        components.erase(components.begin()+getIndexOfComponent(Component)-1);
+//    }
+//}
 
 int Product::numberOfComponents() {
     return components.size();
@@ -123,13 +136,22 @@ bool Product::operator<(const Product& second_argument) const
     return !(*this > second_argument);
 }
 
-Product::Product(int Volume, int NumberLot, string Name, vector<string> Components) {
+Product::Product(int Volume, int NumberLot, string Name, vector<Component> Components) {
     volume = Volume;
     numberLot = NumberLot;
     name = Name;
     components = Components;
 //    expirationDate.setDate(DayExpiration, MonthExpiration, YearExpiration);
 //    producer.setName(NameProducer);
+}
+
+Product::Product(int Volume, int NumberLot, string Name, vector<Component> Components, Date ExpirationDate, Producer Producer) {
+    volume = Volume;
+    numberLot = NumberLot;
+    name = Name;
+    components = {};
+    producer = Producer;
+    expirationDate = ExpirationDate;
 }
 
 

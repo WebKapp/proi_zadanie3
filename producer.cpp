@@ -49,8 +49,12 @@ void Producer::setNumber(int newNumber) {
     number = newNumber;
 }
 
-Producer::Producer(string Name) {
+Producer::Producer(string Name, string City, string Street, string PostCode, int Number) {
     name = Name;
+    city = City;
+    street = Street;
+    postCode = PostCode;
+    number = Number;
 }
 
 Producer::Producer() {
@@ -61,7 +65,7 @@ Producer::Producer() {
     number = 0;
 }
 
-void Producer::setAddress(string newCity, string newPostCode, string newStreet, int newNumber) {
+void Producer::setAddress(string newCity, string newStreet, string newPostCode, int newNumber) {
     city = newCity;
     postCode = newPostCode;
     street = newStreet;

@@ -6,6 +6,7 @@
 #define ZADANIE3_PRODUCT_H
 #include "producer.h"
 #include "date.h"
+#include "component.h"
 #include <string>
 #include <vector>
 
@@ -17,10 +18,11 @@ private:
     string name;
     Producer producer;
     Date expirationDate;
-    vector<string> components;
+    vector<Component> components;
 
 public:
-    Product(int Volume, int NumberLot, string Name, vector<string> Components);
+    Product(int Volume, int NumberLot, string Name, vector<Component> Components);
+    Product(int Volume, int NumberLot, string Name, vector<Component> Components, Date ExpirationDate, Producer Producer);
     int getVolume();
     int getNumberLot();
     string getName();
@@ -33,14 +35,15 @@ public:
     void setProducer(Producer newProducer);
     void setExpirationDate(Date newExpirationDate);
 
-    vector<string> getComponents();
-    bool checkIfContains(string Component);
-    int getIndexOfComponent(string Component);
-    void addComponent(string newComponent);
-    void modifyComponent(string oldComponent, string newComponent);
-    void removeComponent(string Component);
+    vector<Component> getComponents();
+    Component getComponent(string name);
+    bool checkIfContains(string checkedComponent);
+    int getIndexOfComponent(string name);
+    void addComponent(Component& newComponent);
+    void modifyComponent(Component& oldComponent, Component& newComponent);
+//    void removeComponent(string name);
     int numberOfComponents();
-    void printComponents();
+//    void printComponents();
 
     //wersja prefiksowa -zwraca wartość po inkrementacji
     Product& operator++();
