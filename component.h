@@ -13,10 +13,18 @@ private:
 public:
     Component();
     Component(string Name, int Percentage);
-    string getName();
-    int getPercentage();
+    string getName() const;
+    int getPercentage() const;
 
     void setName(string newName);
     void setPercentage(int newPercentage);
+
+    bool operator>(Component secondArgument) const;
+    bool operator<(const Component& secondArgument) const;
+
+    friend ostream& operator<<(ostream& os, const Component& component);
 };
+
+ostream& operator<<(ostream& os, const Component& component);
+
 #endif //ZADANIE3_COMPONENT_H

@@ -9,6 +9,7 @@
 #include "component.h"
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 class Product{
@@ -58,7 +59,11 @@ public:
     bool operator>(Product second_argument) const;
     bool operator<(const Product& second_argument) const;
 
+    void sortComponentsName();
+    void sortComponentsPercentage();
+
+    friend std::ostream& operator<<(ostream& os, const Product& product);
 };
 
-
+ostream& operator<<(std::ostream& os, const Product& product);
 #endif //ZADANIE3_PRODUCT_H

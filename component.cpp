@@ -3,12 +3,12 @@
 //
 
 #include "component.h"
-
-string Component::getName() {
+#include <iostream>
+string Component::getName() const{
     return name;
 }
 
-int Component::getPercentage() {
+int Component::getPercentage() const{
     return percentage;
 }
 
@@ -28,4 +28,19 @@ Component::Component(string Name, int Percentage) {
 Component::Component() {
     name = "";
     percentage = 0;
+}
+
+bool Component::operator>(Component secondArgument) const
+{
+    return percentage > secondArgument.getPercentage();
+}
+
+bool Component::operator<(const Component& secondArgument) const
+{
+    return !(*this > secondArgument);
+}
+
+ostream& operator<<(ostream& os, Component& component) {
+    os<<component.getName() << "," << component.getPercentage();
+    return os;
 }

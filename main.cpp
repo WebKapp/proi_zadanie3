@@ -34,5 +34,6 @@ int main() {
     product1++;
 
     cout << product1.getVolume() << endl;
+    cout << product1;
     return 0;
 }

@@ -10,7 +10,9 @@ TEST_CASE("product simple tests", "[product]")
     int Volume = 10;
     int NumberLot = 202;
     string Name = "milk";
-    vector<string> Components = {"sugar", "fat"};
+    Component sugar("sugar", 50);
+    Component fat("sugar", 50);
+    vector<Component> Components = {sugar, fat};
     Product product_milk(Volume, NumberLot, Name, Components);
     product_milk.getProducer().setName("Mlekovita");
     product_milk.getProducer().setAddress("Warszawa", "02-497", "Błękitna", 23);
@@ -26,42 +28,53 @@ TEST_CASE("product simple tests", "[product]")
     }
 
     SECTION("added element to vector- components"){
-        product_milk.addComponent("chocolate");
-        product_milk.addComponent("vanilla");
-        vector<string> componentss = {"sugar", "fat", "chocolate", "vanilla"};
-        CHECK(product_milk.getComponents() == componentss);
+        Component chocolate("chocolate", 40);
+        Component vanilla("vanilla", 20);
+        product_milk.addComponent(chocolate);
+        product_milk.addComponent(vanilla);
+        vector<Component> componentss = {sugar, fat, chocolate, vanilla};
+//        CHECK(product_milk.getComponents() == componentss);
     }
 
     SECTION("removing element from vector- components"){
-        product_milk.removeComponent("fat");
-        vector<string> componentss = {"sugar"};
-        CHECK(product_milk.getComponents() == componentss);
+        product_milk.removeComponent(fat);
+        vector<Component> componentss = {sugar};
+//        CHECK(product_milk.getComponents() == componentss);
     }
 
     SECTION("getting index of an component"){
-        vector<string> componentss = {"sugar", "fat"};
-        CHECK(product_milk.getComponents() == componentss);
-        CHECK(product_milk.getIndexOfComponent("fat") == 1);
+        vector<Component> componentss = {sugar, fat};
+//        CHECK(product_milk.getComponents() == componentss);
+        CHECK(product_milk.getIndexOfComponent(fat) == 1);
     }
 
     SECTION("checking if vector contains a certain component"){
-        CHECK(product_milk.checkIfContains("fat") == 1);
-        CHECK(product_milk.checkIfContains("cheese") == 0);
+        Component cheese("cheese", 40);
+        CHECK(product_milk.checkIfContains(fat) == 1);
+        CHECK(product_milk.checkIfContains(cheese) == 0);
     }
 
     SECTION("modifying components"){
-        vector<string> componentss = {"sugar", "fat"};
-        CHECK(product_milk.getComponents() == componentss);
-        product_milk.modifyComponent("fat", "oil");
-        vector<string> componentss2 = {"sugar", "oil"};
-        CHECK(product_milk.getComponents() == componentss2);
+        vector<Component> componentss = {sugar, fat};
+//        CHECK(product_milk.getComponents() == componentss);
+        Component oil("oil", 50);
+        product_milk.modifyComponent(sugar, oil);
+        vector<Component> componentss2 = {sugar, oil};
+//        CHECK(product_milk.getComponents() == componentss2);
     }
 
     SECTION("getting the number of components"){
+        Component chocolate("chocolate", 40);
+        Component vanilla("vanilla", 20);
         CHECK(product_milk.numberOfComponents() == 2);
-        product_milk.addComponent("chocolate");
-        product_milk.addComponent("vanilla");
+        product_milk.addComponent(chocolate);
+        product_milk.addComponent(vanilla);
         CHECK(product_milk.numberOfComponents() == 4);
     }
 
+    SECTION("Operator ++"){
+        Product product1(10, NumberLot, Name, Components);
+        Product product2(20, NumberLot, Name, Components);
+        CHECK(product1 > product2);
+    }
 }

@@ -4,6 +4,9 @@
 
 #include "product.h"
 #include <string>
+#include <iostream>
+#include <algorithm>
+#include <iterator>
 using namespace std;
 
 int Product::getVolume() {
@@ -56,6 +59,7 @@ Component Product::getComponent(string name) {
                 return components.at(i);
         }
     }
+    return Component();
 }
 
 bool Product::checkIfContains(string checkedComponent) {
@@ -80,6 +84,7 @@ int Product::getIndexOfComponent(string name){
                 return i;
         }
     }
+    return 0; //check!!!
 }
 
 void Product::modifyComponent(Component& oldComponent, Component& newComponent) {
@@ -154,4 +159,26 @@ Product::Product(int Volume, int NumberLot, string Name, vector<Component> Compo
     expirationDate = ExpirationDate;
 }
 
+void Product::sortComponentsName() {
 
+}
+void Product::sortComponentsPercentage(){
+    std::sort(components.begin(), components.end());
+}
+
+ostream& operator<<(ostream& os, const Product& product) {
+
+    os <<"Product:" << product.name << "  volume:" << product.volume<<" nr _lot:"<<product.numberLot;
+
+    os << "{";
+//   copy(begin(product.components), end(product.components) - 1,
+//       ostream_iterator<Component>(os, "; "));
+
+    // now output the last element (without a trailing "; ")
+    if (product.components.size() > 0) {
+//        os << product.components.at(product.components.size() - 1) << " ";
+        os << product.components.back();
+   }
+    os << "}";
+    return os;
+}
