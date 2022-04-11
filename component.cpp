@@ -40,7 +40,7 @@ bool Component::operator<(const Component& secondArgument) const
     return !(*this > secondArgument);
 }
 
-ostream& operator<<(ostream& os, Component& component) {
+ostream& operator<<(ostream& os, Component const & component) {
     os<<component.getName() << "," << component.getPercentage();
     return os;
 }
