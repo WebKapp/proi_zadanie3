@@ -94,3 +94,18 @@ void Date::setDate(int newDay, Months newMonth, int newYear) {
         year = newYear;
     }
 }
+
+bool Date::operator==(const Date& second_argument) const
+{
+    return day == second_argument.day && month == second_argument.month && year == second_argument.year;
+}
+
+bool Date::operator!=(const Date& second_argument) const
+{
+    return !(*this == second_argument);
+}
+
+ostream& operator<<(ostream& os, Date const & date) {
+    os<<date.day << "." << date.month << "." << date.year;
+    return os;
+}

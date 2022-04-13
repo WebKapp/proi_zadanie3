@@ -71,3 +71,14 @@ void Producer::setAddress(string newCity, string newStreet, string newPostCode, 
     street = newStreet;
     number = newNumber;
 }
+
+bool Producer::operator==(const Producer& second_argument) const
+{
+    return city == second_argument.city && postCode == second_argument.postCode
+    && street == second_argument.street && number == second_argument.number;
+}
+
+bool Producer::operator!=(const Producer& second_argument) const
+{
+    return !(*this == second_argument);
+}

@@ -44,3 +44,13 @@ ostream& operator<<(ostream& os, Component const & component) {
     os<<component.getName() << "," << component.getPercentage();
     return os;
 }
+
+bool Component::operator==(const Component& second_argument) const
+{
+    return name == second_argument.getName() && percentage == second_argument.getPercentage();
+}
+
+bool Component::operator!=(const Component& second_argument) const
+{
+    return !(*this == second_argument);
+}

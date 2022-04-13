@@ -22,6 +22,9 @@ public:
     bool operator>(Component secondArgument) const;
     bool operator<(const Component& secondArgument) const;
 
+    bool operator==(const Component& second_argument) const;
+    bool operator!=(const Component& second_argument) const;
+
     friend ostream& operator<<(ostream& os, const Component& component);
 };
 

@@ -9,6 +9,12 @@
 #include <iterator>
 using namespace std;
 
+struct sortName {
+    bool operator() (const Component& component1, const Component& component2) {
+        return (component1.getName() < component2.getName());
+    }
+};
+
 int Product::getVolume() {
     return volume;
 }
@@ -94,11 +100,13 @@ void Product::modifyComponent(Component& oldComponent, Component& newComponent) 
     }
 }
 
-//void Product::removeComponent(string name) {
-//    if (checkIfContains(name)){
-//        components.erase(components.begin()+getIndexOfComponent(Component)-1);
-//    }
-//}
+void Product::removeComponent(string name) {
+    if (checkIfContains(name)){
+        auto it = find_if(components.begin(), components.end(), [&name](const Component& obj) {return obj.getName() == name;});
+        auto index = distance(components.begin(), it);
+        components.erase(remove(components.begin(), components.end(), components[index]), components.end());
+    }
+}
 
 int Product::numberOfComponents() {
     return components.size();
@@ -160,25 +168,37 @@ Product::Product(int Volume, int NumberLot, string Name, vector<Component> Compo
 }
 
 void Product::sortComponentsName() {
-
+    sort(components.begin(), components.end(), sortName());
 }
+
 void Product::sortComponentsPercentage(){
-    std::sort(components.begin(), components.end());
+    sort(components.begin(), components.end());
 }
 
 ostream& operator<<(ostream& os, const Product& product) {
-
     os <<"Product:" << product.name << "  volume:" << product.volume<<" nr _lot:"<<product.numberLot;
+    os << " components:{";
 
-    os << "{";
-//   copy(begin(product.components), end(product.components) - 1,
-//       ostream_iterator<Component>(os, "; "));
+   copy(begin(product.components), end(product.components) - 1,
+       ostream_iterator<Component>(os, "; "));
 
     // now output the last element (without a trailing "; ")
     if (product.components.size() > 0) {
-//        os << product.components.at(product.components.size() - 1) << " ";
-        os << product.components.back();
+        os << product.components.at(product.components.size() - 1) << " ";
    }
-    os << "}";
+    os << "} ";
+    os << "Expiration date:" << product.expirationDate;
     return os;
+}
+
+bool Product::operator==(const Product& second_argument) const
+{
+    return volume == second_argument.volume && numberLot == second_argument.numberLot && name == second_argument.name
+    && producer == second_argument.producer && expirationDate == second_argument.expirationDate
+    && components == second_argument.components;
+}
+
+bool Product::operator!=(const Product& second_argument) const
+{
+    return !(*this == second_argument);
 }

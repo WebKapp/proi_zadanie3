@@ -32,5 +32,8 @@ public:
     void setNumber(int newNumber);
 
     void setAddress(string newCity, string newPostCode, string newStreet, int newNumber);
+
+    bool operator==(const Producer& second_argument) const;
+    bool operator!=(const Producer& second_argument) const;
 };
 #endif //ZADANIE3_PRODUCER_H

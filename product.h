@@ -42,7 +42,7 @@ public:
     int getIndexOfComponent(string name);
     void addComponent(Component& newComponent);
     void modifyComponent(Component& oldComponent, Component& newComponent);
-//    void removeComponent(string name);
+    void removeComponent(string name);
     int numberOfComponents();
 //    void printComponents();
 
@@ -61,6 +61,9 @@ public:
 
     void sortComponentsName();
     void sortComponentsPercentage();
+
+    bool operator==(const Product& second_argument) const;
+    bool operator!=(const Product& second_argument) const;
 
     friend std::ostream& operator<<(ostream& os, const Product& product);
 };
