@@ -58,6 +58,7 @@ void Product::setProducer(Producer newProducer) {
 void Product::setExpirationDate(Date newExpirationDate) {
     expirationDate = newExpirationDate;
 }
+
 Component Product::getComponent(string name) {
     if(checkIfContains(name)){
         for(int i=0; i < components.size(); i++){
@@ -110,6 +111,16 @@ void Product::removeComponent(string name) {
 
 int Product::numberOfComponents() {
     return components.size();
+}
+
+
+int Product::numberOfComponentsGreater(int percentage) {
+    int number = 0;
+    for (Component component  : components){
+        if (component.getPercentage() > percentage)
+            number++;
+    }
+    return number;
 }
 
 //przeciążenia operatorów
@@ -176,7 +187,7 @@ void Product::sortComponentsPercentage(){
 }
 
 ostream& operator<<(ostream& os, const Product& product) {
-    os <<"Product:" << product.name << "  volume:" << product.volume<<" nr _lot:"<<product.numberLot;
+    os <<"Product:" << product.name << "  volume:" << product.volume<<" nr_of_lot:"<<product.numberLot;
     os << " components:{";
 
    copy(begin(product.components), end(product.components) - 1,
@@ -187,7 +198,11 @@ ostream& operator<<(ostream& os, const Product& product) {
         os << product.components.at(product.components.size() - 1) << " ";
    }
     os << "} ";
-    os << "Expiration date:" << product.expirationDate;
+    os << "\n";
+    os << "Expiration date: " << product.expirationDate;
+    os << "\n";
+    os << "Producer: " << product.producer;
+    os << "\n";
     return os;
 }
 
@@ -201,4 +216,28 @@ bool Product::operator==(const Product& second_argument) const
 bool Product::operator!=(const Product& second_argument) const
 {
     return !(*this == second_argument);
+}
+
+Product::Product() {
+    volume = 0;
+    numberLot = 0;
+    name = "";
+    components = {};
+}
+
+Product::Product(int Volume, int NumberLot, string Name) {
+    volume = Volume;
+    numberLot = NumberLot;
+    name = Name;
+}
+
+istream& operator>>(istream& in, Product& product)
+{
+    //Product::Product(int Volume, int NumberLot, string Name, vector<Component> Components, Date ExpirationDate, Producer Producer) {
+    in >> product.volume;
+    in >> product.numberLot;
+    in >> product.name;
+//    in >> component1;
+
+    return in;
 }

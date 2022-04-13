@@ -35,5 +35,8 @@ public:
 
     bool operator==(const Producer& second_argument) const;
     bool operator!=(const Producer& second_argument) const;
+
+    friend std::ostream& operator<<(ostream& os, const Producer& producer);
 };
+ostream& operator<<(std::ostream& os, const Producer& producer);
 #endif //ZADANIE3_PRODUCER_H

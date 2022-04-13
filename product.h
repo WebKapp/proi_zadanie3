@@ -22,6 +22,8 @@ private:
     vector<Component> components;
 
 public:
+    Product();
+    Product(int Volume, int NumberLot, string Name);
     Product(int Volume, int NumberLot, string Name, vector<Component> Components);
     Product(int Volume, int NumberLot, string Name, vector<Component> Components, Date ExpirationDate, Producer Producer);
     int getVolume();
@@ -44,8 +46,8 @@ public:
     void modifyComponent(Component& oldComponent, Component& newComponent);
     void removeComponent(string name);
     int numberOfComponents();
-//    void printComponents();
 
+    int numberOfComponentsGreater(int percentage);
     //wersja prefiksowa -zwraca wartość po inkrementacji
     Product& operator++();
     //wersja postfiksowa - też inkrementuje, ale zwraca wartość przed inkrementacją
@@ -66,7 +68,9 @@ public:
     bool operator!=(const Product& second_argument) const;
 
     friend std::ostream& operator<<(ostream& os, const Product& product);
+    friend std::istream& operator>>(istream& in, Product& product);
 };
 
 ostream& operator<<(std::ostream& os, const Product& product);
+istream& operator>>(std::istream& in, Product& product);
 #endif //ZADANIE3_PRODUCT_H

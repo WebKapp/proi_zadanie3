@@ -82,3 +82,8 @@ bool Producer::operator!=(const Producer& second_argument) const
 {
     return !(*this == second_argument);
 }
+ostream& operator<<(ostream& os, const Producer& producer) {
+    os <<"name: "<<producer.name <<" city:"<<producer.city<<" postcode:"<<producer.postCode<<" street:"<<producer.street
+    <<" number:"<<producer.number;
+    return os;
+}
