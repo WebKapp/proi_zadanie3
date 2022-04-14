@@ -14,15 +14,28 @@ vector<Product> File::readFile() {
             Products.push_back(temp);
         }
     }
-    else{
-        cerr << "Mistake";
-    }
+//    else{
+//        cerr << "Error while opening the file";
+//    }
     file.close();
-
     return Products;
 }
 
 File::File(string FileName) {
-    fileName = FileName;
+    if (checkIfExists(FileName)){
+        fileName = FileName;
+    }
+}
+
+bool File::checkIfExists(string FileName) {
+    ifstream file;
+    file.open("/Users/kacper/CLionProjects/zadanie3/"+(string)FileName);
+    if(file) {
+        file.close();
+        return true;
+    } else {
+        file.close();
+        return false;
+    }
 }
 

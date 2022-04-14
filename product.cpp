@@ -66,7 +66,7 @@ Component Product::getComponent(string name) {
                 return components.at(i);
         }
     }
-    return Component();
+    cerr << "No such component";
 }
 
 bool Product::checkIfContains(string checkedComponent) {
@@ -91,7 +91,9 @@ int Product::getIndexOfComponent(string name){
                 return i;
         }
     }
-    return 0; //check!!!
+    else{
+        cerr << "No such component";
+    }
 }
 
 void Product::modifyComponent(Component& oldComponent, Component& newComponent) {
@@ -165,8 +167,6 @@ Product::Product(int Volume, int NumberLot, string Name, vector<Component> Compo
     numberLot = NumberLot;
     name = Name;
     components = Components;
-//    expirationDate.setDate(DayExpiration, MonthExpiration, YearExpiration);
-//    producer.setName(NameProducer);
 }
 
 Product::Product(int Volume, int NumberLot, string Name, vector<Component> Components, Date ExpirationDate, Producer Producer) {
@@ -233,11 +233,41 @@ Product::Product(int Volume, int NumberLot, string Name) {
 
 istream& operator>>(istream& in, Product& product)
 {
+    string com1_name, com2_name;
+    int com1_percentage, com2_percentage;
+    int day, month, year;
+    string name, city, postCode, street;
+    int number;
+    //Producer(string Name, string City, string Street, string PostCode, int Number);
     //Product::Product(int Volume, int NumberLot, string Name, vector<Component> Components, Date ExpirationDate, Producer Producer) {
     in >> product.volume;
     in >> product.numberLot;
     in >> product.name;
-//    in >> component1;
+    in >> com1_name;
+    in >> com1_percentage;
+    in >> com2_name;
+    in >> com2_percentage;
+
+    Component component1(com1_name, com1_percentage);
+    Component component2(com2_name, com2_percentage);
+    product.addComponent(component1);
+    product.addComponent(component2);
+
+    in >> day;
+    in >> month;
+    in >> year;
+
+    Date date(day, (Months)month, year);
+    product.setExpirationDate(date);
+
+    in >> name;
+    in >> city;
+    in >> street;
+    in >> postCode;
+    in >> number;
+
+    Producer producer(name, city, street, postCode, number);
+    product.setProducer(producer);
 
     return in;
 }

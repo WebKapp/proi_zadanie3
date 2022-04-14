@@ -25,10 +25,6 @@ int Producer::getNumber() {
     return number;
 }
 
-//string Producer::getFullAddress() {
-//    return std::string();
-//}
-
 void Producer::setName(string newName) {
     name = newName;
 }
@@ -67,8 +63,8 @@ Producer::Producer() {
 
 void Producer::setAddress(string newCity, string newStreet, string newPostCode, int newNumber) {
     city = newCity;
-    postCode = newPostCode;
     street = newStreet;
+    postCode = newPostCode;
     number = newNumber;
 }
 
@@ -82,6 +78,7 @@ bool Producer::operator!=(const Producer& second_argument) const
 {
     return !(*this == second_argument);
 }
+
 ostream& operator<<(ostream& os, const Producer& producer) {
     os <<"name: "<<producer.name <<" city:"<<producer.city<<" postcode:"<<producer.postCode<<" street:"<<producer.street
     <<" number:"<<producer.number;

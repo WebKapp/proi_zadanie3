@@ -15,6 +15,7 @@ private:
 public:
     File(string FileName);
     vector<Product> readFile();
+    bool checkIfExists(string FileName);
 };
 
 
